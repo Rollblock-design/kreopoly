@@ -823,7 +823,10 @@ function safeEdit(query, text, options = {}) {
     reply_markup: options.reply_markup
   }).catch(err => {
     console.log("Edit failed:", err.message);
-    return bot.sendMessage(chatId, text, options);
+    return bot.sendMessage(chatId, text, {
+      parse_mode: "HTML",
+      reply_markup: options.reply_markup
+    });
   });
 }
 
