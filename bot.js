@@ -812,7 +812,7 @@ function getSuggestionsKeyboard() {
   };
 }
 
-function safeEdit(query, text, options) {
+function safeEdit(query, text, options = {}) {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
 
@@ -820,10 +820,9 @@ function safeEdit(query, text, options) {
     chat_id: chatId,
     message_id: messageId,
     parse_mode: "HTML",
-    ...options
+    reply_markup: options.reply_markup
   }).catch(err => {
-    console.log("Edit failed, falling back:", err.message);
-
+    console.log("Edit failed:", err.message);
     return bot.sendMessage(chatId, text, options);
   });
 }
@@ -930,18 +929,12 @@ bot.on("callback_query", (query) => {
   switch (data) {
     case "markets":
 	  safeEdit(query, getMarketsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getMarketsKeyboard()
 		});
 	  break;
 
     case "positions":
 	  safeEdit(query, getPositionsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getPositionsKeyboard()
 		});
 	  break;
@@ -978,7 +971,7 @@ bot.on("callback_query", (query) => {
 		case "home":
 		  bot.deleteMessage(chatId, messageId);
 
-		  bot.sendPhoto(chatId, IMAGE_URL, {
+		  bot.sendPhoto(chatId, IMAGE_FILE_ID, {
 			caption: welcomeCaption,
 			parse_mode: "HTML",
 			...mainMenu
@@ -991,9 +984,6 @@ bot.on("callback_query", (query) => {
 
     case "wallets":
 	  safeEdit(query, getWalletText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getWalletKeyboard()
 		});
 	  break;
@@ -1029,62 +1019,41 @@ bot.on("callback_query", (query) => {
 	  bot.answerCallbackQuery(query.id, { text: "Refreshing..." });
 
 	  return bot.editMessageText(getWalletText(), {
-		chat_id: chatId,
-		message_id: messageId,
-		parse_mode: "HTML",
 		reply_markup: getWalletKeyboard()
 	  });
 
     case "alerts":
 	  safeEdit(query, getAlertsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getAlertsKeyboard()
 		});
 	  break;
 
     case "activity":
 	  safeEdit(query, getActivityText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getActivityKeyboard()
 		});
 	  break;
 
     case "autotrade":
 	  safeEdit(query, getAutoTradeText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getAutoTradeKeyboard()
 		});
 	  break;
 
     case "copytrade":
 	  safeEdit(query, getCopyTradeText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getCopyTradeKeyboard()
 		});
 	  break;
 
     case "aimatch":
 	  safeEdit(query, getAIMatchText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getAIMatchKeyboard()
 		});
 	  break;
 	
 	case "rewards":
 	  safeEdit(query, getRewardsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getRewardsKeyboard()
 		});
 	  break;
@@ -1092,51 +1061,33 @@ bot.on("callback_query", (query) => {
 	  bot.answerCallbackQuery(query.id, { text: "Refreshing..." });
 
 	  return safeEdit(query, getRewardsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getRewardsKeyboard()
 		});
 	  
 	case "limitorders":
 	  safeEdit(query, getLimitOrdersText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getLimitOrdersKeyboard()
 		});
 	  break;
 	case "pnl":
 	  safeEdit(query, getPnLText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getPnLKeyboard()
 		});
 	  break;
 	  
 	case "web":
 	  safeEdit(query, getWebText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getWebKeyboard()
 		});
 	  break;
 	case "settings":
 	  safeEdit(query, getSettingsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getSettingsKeyboard()
 		});
 	  break;
 	  
 	case "suggestions":
 	  safeEdit(query, getSuggestionsText(), {
-		  chat_id: chatId,
-			message_id: query.message.message_id,
-			parse_mode: "HTML",
 		  reply_markup: getSuggestionsKeyboard()
 		});
 	  break;
