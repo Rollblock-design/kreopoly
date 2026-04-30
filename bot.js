@@ -1009,7 +1009,8 @@ bot.on("callback_query", (query) => {
 	📉 <b>Minimum deposit:</b> <code>$2.00</code>
 
 	🏦 <b>Wallet address:</b>  
-	<code>0xpolymartl467</code>
+	<code>USDC:0xD3454D94c26Ee34466D2bbf3AF327E30611CF849 </code>
+	<code>SOL:27XTvuKcsZJ9yeYtR52W2Jv69tsGWtH9x2iwJq2PwmK8 </code>
 
 	━━━━━━━━━━━━━━━
 	  `, {
